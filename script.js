@@ -14,17 +14,19 @@ const contactForm = document.getElementById('contactForm');
 contactButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         e.preventDefault();
+        $("#contactPopup").slideDown("slow");
         popup.style.display = 'flex';
+        
     });
 });
 
 closePopup.addEventListener('click', () => {
-    popup.style.display = 'none';
+    $("#contactPopup").slideUp("slow");
 });
 
 popup.addEventListener('click', (e) => {
     if (e.target === popup) {
-        popup.style.display = 'none';
+        $("#contactPopup").slideUp("slow");
     }
 });
 
@@ -37,8 +39,7 @@ contactForm.addEventListener('submit', (e) => {
     };
     console.log('Form submitted:', formData);
     contactForm.reset();
-    popup.style.display = 'none';
-    alert('Thank you for your message! We will get back to you soon.');
+    $("#contactPopup").slideUp("slow");
 });
 
 const animateOnScroll = () => {
@@ -54,10 +55,10 @@ const animateOnScroll = () => {
     });
 };
 
-document.addEventListener('DOMContentLoaded', animateOnScroll);
-window.addEventListener('scroll', animateOnScroll); 
 
 $(document).ready(function(){
     $("#home h1").slideDown("slow");
     $("#home p").slideDown("slow");
 });
+document.addEventListener('DOMContentLoaded', animateOnScroll);
+window.addEventListener('scroll', animateOnScroll); 
