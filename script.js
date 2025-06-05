@@ -56,3 +56,8 @@ const animateOnScroll = () => {
 
 document.addEventListener('DOMContentLoaded', animateOnScroll);
 window.addEventListener('scroll', animateOnScroll); 
+
+$(document).ready(function(){
+    $("#home h1").slideDown("slow");
+    $("#home p").slideDown("slow");
+});
