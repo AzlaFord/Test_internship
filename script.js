@@ -1,64 +1,49 @@
-const hamburger = document.querySelector('.hamburger');
-const menu = document.querySelector('.menu');
-
-hamburger.addEventListener('click', () => {
-    menu.classList.toggle('active');
-    hamburger.classList.toggle('active');
-});
-
-const contactButtons = document.querySelectorAll('.contact-btn');
-const popup = document.querySelector('.popup-overlay');
-const closePopup = document.querySelector('.close-popup');
-const contactForm = document.getElementById('contactForm');
-
-contactButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-        e.preventDefault();
-        $("#contactPopup").slideDown("slow");
-        popup.style.display = 'flex';
-        
+$(document).ready(function () {
+    $('.hamburger').on('click', function () {
+        $('.menu').toggleClass('active');
+        $(this).toggleClass('active');
     });
-});
 
-closePopup.addEventListener('click', () => {
-    $("#contactPopup").slideUp("slow");
-});
+    $('.contact-btn').on('click', function (e) {
+        e.preventDefault();
+        $('#contactPopup').slideDown('slow');
+        $('.popup-overlay').css('display', 'flex');
+    });
 
-popup.addEventListener('click', (e) => {
-    if (e.target === popup) {
-        $("#contactPopup").slideUp("slow");
-    }
-});
+    $('.close-popup').on('click', function () {
+        $('#contactPopup').slideUp('slow');
+    });
 
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        message: document.getElementById('message').value
-    };
-    console.log('Form submitted:', formData);
-    contactForm.reset();
-    $("#contactPopup").slideUp("slow");
-});
-
-const animateOnScroll = () => {
-    const elements = document.querySelectorAll('.animate-on-scroll');
-    
-    elements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-        
-        if (elementTop < windowHeight - 100) {
-            element.classList.add('visible');
+    $('.popup-overlay').on('click', function (e) {
+        if (e.target === this) {
+            $('#contactPopup').slideUp('slow');
         }
     });
-};
 
+    $('#contactForm').on('submit', function (e) {
+        e.preventDefault();
+        const formData = {
+            name: $('#name').val(),
+            email: $('#email').val(),
+            message: $('#message').val()
+        };
+        console.log('Form submitted:', formData);
+        alert('message sent');
+        $(this)[0].reset();
+        $('#contactPopup').slideUp('slow');
+    });
 
-$(document).ready(function(){
-    $("#home h1").slideDown("slow");
-    $("#home p").slideDown("slow");
+    function animateOnScroll() {
+        $('.animate-on-scroll').each(function () {
+            const elementTop = this.getBoundingClientRect().top;
+            const windowHeight = $(window).height();
+            if (elementTop < windowHeight - 100) {
+                $(this).addClass('visible');
+            }
+        });
+    }
+
+    $('#home h1, #home p').slideDown('slow');
+    animateOnScroll();
+    $(window).on('scroll', animateOnScroll);
 });
-document.addEventListener('DOMContentLoaded', animateOnScroll);
-window.addEventListener('scroll', animateOnScroll); 
